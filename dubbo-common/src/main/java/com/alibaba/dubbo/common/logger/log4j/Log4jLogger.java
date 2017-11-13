@@ -20,6 +20,7 @@ import org.apache.log4j.Level;
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.support.FailsafeLogger;
 
+@Deprecated
 public class Log4jLogger implements Logger {
 
 	private static final String FQCN = FailsafeLogger.class.getName();

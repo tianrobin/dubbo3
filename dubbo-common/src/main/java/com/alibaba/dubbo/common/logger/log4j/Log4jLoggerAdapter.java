@@ -25,7 +25,7 @@ import org.apache.log4j.LogManager;
 import com.alibaba.dubbo.common.logger.Level;
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.LoggerAdapter;
-
+@Deprecated
 public class Log4jLoggerAdapter implements LoggerAdapter {
 
     private File            file;
