@@ -186,7 +186,7 @@ function check() {
 		return false;
 	}
 	if(byId('service').value.indexOf('*') != -1 || byId('service').value.indexOf(',') != -1 ){
-		showAlert("Service name can not contain '*' or ','.", 'service');
+		showAlert("DubboService name can not contain '*' or ','.", 'service');
 		return false;
 	}
 	

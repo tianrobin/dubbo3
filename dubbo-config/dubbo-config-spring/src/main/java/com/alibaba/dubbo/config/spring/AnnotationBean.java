@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.alibaba.dubbo.config.annotation.DubboService;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanInitializationException;
@@ -51,7 +52,6 @@ import com.alibaba.dubbo.config.ReferenceConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.ServiceConfig;
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.alibaba.dubbo.config.annotation.Service;
 
 /**
  * AnnotationBean
@@ -101,7 +101,7 @@ public class AnnotationBean extends AbstractConfig implements DisposableBean, Be
                 Object scanner = scannerClass.getConstructor(new Class<?>[] {BeanDefinitionRegistry.class, boolean.class}).newInstance(new Object[] {(BeanDefinitionRegistry) beanFactory, true});
                 // add filter
                 Class<?> filterClass = ReflectUtils.forName("org.springframework.core.type.filter.AnnotationTypeFilter");
-                Object filter = filterClass.getConstructor(Class.class).newInstance(Service.class);
+                Object filter = filterClass.getConstructor(Class.class).newInstance(DubboService.class);
                 Method addIncludeFilter = scannerClass.getMethod("addIncludeFilter", ReflectUtils.forName("org.springframework.core.type.filter.TypeFilter"));
                 addIncludeFilter.invoke(scanner, filter);
                 // scan packages
@@ -140,7 +140,7 @@ public class AnnotationBean extends AbstractConfig implements DisposableBean, Be
         if(isProxyBean(bean)){
             clazz = AopUtils.getTargetClass(bean);
         }
-        Service service = clazz.getAnnotation(Service.class);
+        DubboService service = clazz.getAnnotation(DubboService.class);
         if (service != null) {
             ServiceBean<Object> serviceConfig = new ServiceBean<Object>(service);
             if (void.class.equals(service.interfaceClass())
@@ -148,7 +148,7 @@ public class AnnotationBean extends AbstractConfig implements DisposableBean, Be
                 if (clazz.getInterfaces().length > 0) {
                     serviceConfig.setInterface(clazz.getInterfaces()[0]);
                 } else {
-                    throw new IllegalStateException("Failed to export remote service class " + clazz.getName() + ", cause: The @Service undefined interfaceClass or interfaceName, and the service class unimplemented any interfaces.");
+                    throw new IllegalStateException("Failed to export remote service class " + clazz.getName() + ", cause: The @DubboService undefined interfaceClass or interfaceName, and the service class unimplemented any interfaces.");
                 }
             }
             if (applicationContext != null) {

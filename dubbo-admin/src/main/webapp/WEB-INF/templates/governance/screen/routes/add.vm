@@ -34,7 +34,7 @@
 						#end
 					</select>
 				#end
-				<button onclick="if(byId('service').value == '') { showAlert('$i18n.get("PleaseInput")$i18n.get("ServiceName")', 'service'); } else if(!checkService(byId('service').value)) { showAlert('Service name can not contain , only last * is allowed', 'service'); } else { window.location.href='../services/' + byId('service').value+'/routes/add?input=true'; } return false;">$i18n.get("getMethods")</button>
+				<button onclick="if(byId('service').value == '') { showAlert('$i18n.get("PleaseInput")$i18n.get("ServiceName")', 'service'); } else if(!checkService(byId('service').value)) { showAlert('DubboService name can not contain , only last * is allowed', 'service'); } else { window.location.href='../services/' + byId('service').value+'/routes/add?input=true'; } return false;">$i18n.get("getMethods")</button>
 				<br>
 				<font color='blue'>$i18n.get("RouteServiceTip")</font>
 			#end
@@ -195,7 +195,7 @@ function check() {
 		return false;
 	}
 	if(byId('service').value.indexOf('*') != -1 || byId('service').value.indexOf(',') != -1 ){
-		showAlert("Service name can not contain '*' or ','.", 'service');
+		showAlert("DubboService name can not contain '*' or ','.", 'service');
 		return false;
 	}
 	
